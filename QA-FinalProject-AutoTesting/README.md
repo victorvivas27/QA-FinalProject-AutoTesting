@@ -8,8 +8,12 @@ Este repositorio contiene el proyecto final del curso **Test Automation Engineer
 
 - Victor Vivas – 
 - [Nombre 2] – 
-- [Nombre 3] – 
+- [Nombre 3] –
+-  
+## Documentación relacionada
 
+- [REQUERIMIENTOS](REQUERIMIENTOS.md)
+- [RESULTADOS](RESULTADOS.md)
 ---
 
 ## 📁 Estructura del proyecto
