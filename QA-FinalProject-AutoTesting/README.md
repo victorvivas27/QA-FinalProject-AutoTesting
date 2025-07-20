@@ -11,9 +11,6 @@ Este repositorio contiene el proyecto final del curso **Test Automation Engineer
 - [Nombre 3] –
 -  
 ## Documentación relacionada
-
-- [REQUERIMIENTOS](REQUERIMIENTOS.md)
-- [RESULTADOS](RESULTADOS.md)
 ---
 📋 [Tablero Trello – Proyecto Final QA Test Automation](https://trello.com/b/9LS2qO7P/proyecto-final-qa-test-automation)
 - [REQUERIMIENTOS](REQUERIMIENTOS.md)
