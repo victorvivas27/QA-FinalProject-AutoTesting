@@ -6,8 +6,8 @@ Este repositorio contiene el proyecto final del curso **Test Automation Engineer
 
 ## 👥 Integrantes del equipo
 
-- Victor Vivas – 
-- [Nombre 2] – 
+- [Victor Javier Vivas](https://github.com/victorvivas27) 
+- [Leonel Briones](https://github.com/jarodsmdev)
 - [Nombre 3] –
 -  
 ## Documentación relacionada
