@@ -3,16 +3,8 @@ import LoginPage from '../pages/LoginPage.js';
 import BusquedaPage from '../pages/BusquedaPage.js';
 import AgregarAlCarritoPage from '../pages/AgregarAlCarritoPage.js';
 import CarritoPage from '../pages/CarritoPage.js';
-import { capabilities } from '../configs/appium.config.js';
+import { wdOpts } from '../configs/appium.config.js';
 
-
-const wdOpts = {
-  hostname: "127.0.0.1",
-  port: 4723,
-  loglevel: 'info',
-  capabilities
-
-}
 let driver;
 let loginPage;
 let busquedaPage;

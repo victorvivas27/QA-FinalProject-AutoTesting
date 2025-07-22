@@ -31,6 +31,12 @@ Antes de comenzar, asegurate de tener instalado:
    ```
 
 ---
+## ▶️⚠️ **IMPORTANTE**
+Antes de ejecutar las pruebas, **NO OLVIDES CREAR UN ARCHIVO `.env`** 
+
+🔹`RUTA_APK` es el **nombre de la variable de entorno** 
+que se utiliza para indicar la ubicación del archivo `.apk`. 
+
 ## ▶️ Ejecutar pruebas
 
 1. Asegurate de tener un emulador Android encendido.

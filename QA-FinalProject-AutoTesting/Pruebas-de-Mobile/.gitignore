@@ -6,3 +6,6 @@ test-results/
 # Entornos
 .env
 .DS_Store
+
+allure-results/
+allure-report/
