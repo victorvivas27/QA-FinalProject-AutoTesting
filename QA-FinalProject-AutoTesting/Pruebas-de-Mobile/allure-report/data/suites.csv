@@ -1,5 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","1360","Validando contenido del carrito","","Mon Jul 21 20:27:05 CLT 2025","passed","Mon Jul 21 20:27:06 CLT 2025","","Validando login de la app","",""
-"","3054","Validando búsqueda de productos","","Mon Jul 21 20:27:00 CLT 2025","passed","Mon Jul 21 20:27:03 CLT 2025","","Validando login de la app","",""
-"","1195","Validando agregar producto al carrito","","Mon Jul 21 20:27:03 CLT 2025","passed","Mon Jul 21 20:27:05 CLT 2025","","Validando login de la app","",""
-"","5201","Dado que ingreso usuario y contraseña válidos","","Mon Jul 21 20:26:55 CLT 2025","passed","Mon Jul 21 20:27:00 CLT 2025","","Validando login de la app","",""
