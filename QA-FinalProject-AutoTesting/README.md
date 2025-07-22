@@ -8,7 +8,7 @@ Este repositorio contiene el proyecto final del curso **Test Automation Engineer
 
 - [Victor Javier Vivas](https://github.com/victorvivas27) 
 - [Leonel Briones](https://github.com/jarodsmdev)
-- [Nombre 3] –
+- [Rodrigo Quiroz Castro](https://github.com/RodDev88)
 -  
 ## Documentación relacionada
 ---
