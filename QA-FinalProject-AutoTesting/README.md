@@ -8,8 +8,8 @@ Este repositorio contiene el proyecto final del curso **Test Automation Engineer
 
 - [Victor Javier Vivas](https://github.com/victorvivas27) 
 - [Leonel Briones](https://github.com/jarodsmdev)
-- [Nombre 3] –
--  
+- Rodrigo Quiróz
+
 ## Documentación relacionada
 ---
 📋 [Tablero Trello – Proyecto Final QA Test Automation](https://trello.com/b/9LS2qO7P/proyecto-final-qa-test-automation)

@@ -1,0 +1,457 @@
+{
+	"info": {
+		"_postman_id": "59f42079-b40d-49b0-baea-ffb0643e5e44",
+		"name": "ADL-Proyecto Final",
+		"description": "This document presents the final project developed for the **ADL Test Automation Engineer course**, authored by:\n\n- **Leonel Briones Palacios**\n    \n- **Víctor Javier Vivas**\n    \n- **Rodrigo Quiróz**\n    \n\n---\n\n## API Overview\n\nThis project tests a RESTful API available at:\n\nBase URL:  \n[https://api-tester-adl.leonardojose.dev](https://api-tester-adl.leonardojose.dev)\n\nThe full API documentation is available at:  \n[https://documenter.getpostman.com/view/1142428/2sB34ijzCx#98724fd1-9c91-4294-b310-6c9dac5bb0cb](https://documenter.getpostman.com/view/1142428/2sB34ijzCx#98724fd1-9c91-4294-b310-6c9dac5bb0cb)\n\n---\n\n## Test Scripts\n\nAll test scripts were created using Postman and should be exported in Collection v2.1 format for compatibility with Newman (Postman's command-line runner).\n\n---\n\n## Running Tests with Newman\n\nOnce exported, the collection can be run using the following command:\n\n``` bash\nnewman run <your_collection_file.json> \n  --environment <your_environment_file.json> \n  --reporters cli,html \n  --reporter-html-export report.html\n\n ```\n\n### Example\n\n``` bash\nnewman run adl-final-project.postman_collection.json \n  --environment adl-env.postman_environment.json \n  --reporters cli,html \n  --reporter-html-export results/report.html\n\n ```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34430111"
+	},
+	"item": [
+		{
+			"name": "Iniciar Sesión",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test 1: Verificar que el inicio de sesión correcto retorne código de respuesta 200 OK",
+							"pm.test(\"Iniciar sesión correctamente, retorna código de estado 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Captura la respuesta en la constante para su uso en futuros tests.",
+							"const jsonData = pm.response.json();",
+							"",
+							"// Captura el access_token del login y lo guarda como variable de entorno",
+							"pm.collectionVariables.set(\"access_token\", jsonData.access_token);",
+							"",
+							"// Test 2: Verificar que la respuesta contenga un access_token válido",
+							"pm.test(\"La respuesta debe contener un access_token válido\", () => {",
+							"    pm.expect(jsonData).to.have.property(\"access_token\");",
+							"    pm.expect(jsonData.access_token).to.be.a(\"string\").and.not.empty;",
+							"});",
+							"",
+							"// Test 3: Verificar que en el header de la petición se envíe correctamente el Content-Type application/json",
+							"pm.test(\"El header Content-Type debe ser application/json\", () => {",
+							"    pm.expect(pm.request.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+							"});",
+							"",
+							"// Test 4: Verificar que el token_type sea 'Bearer'",
+							"pm.test(\"El token_type debe ser 'Bearer'\", () => {",
+							"    pm.expect(jsonData.token_type).to.eql(\"Bearer\");",
+							"});",
+							"",
+							"// Test 5: Verificar que la respuesta incluye un usuario con email",
+							"pm.test(\"La respuesta incluye un usuario con email\", () => {",
+							"    pm.expect(jsonData).to.have.property(\"user\");",
+							"    pm.expect(jsonData.user.email).to.match(/@/);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":{{email}},\n    \"password\":{{password}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": "### Login API Endpoint\n\nThis endpoint is used to authenticate a user by logging them into the application. It accepts user credentials and returns a response indicating the success or failure of the login attempt.\n\n#### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/api/login`\n    \n\n#### Request Body\n\nThe request body should be in JSON format and must contain the following parameter:\n\n- **email** (string): The email address of the user attempting to log in.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"passwordExample\"\n}\n\n ```\n\n#### Response\n\nThe response will indicate the result of the login attempt. The structure of the response may include the following fields:\n\n``` json\n{\n  \"access_token\": \"1149|m19UYcJyxeL22OscZsbJaRq4xRy6Tf54AoZC0NGb93c71a45\",\n  \"token_type\": \"Bearer\",\n  \"user\": {\n    \"id\": 9,\n    \"name\": \"Tester ADL\",\n    \"email\": \"testeradl@test.com\"\n  }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener clientes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test 1: Verificar que la petición retorna código de estado 200",
+							"pm.test(\"Verificar que la petición retorna código de estado 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Test 2: Enviar solicitud GET sin cuerpo de petición",
+							"pm.test(\"Enviar solicitud GET sin cuerpo de petición\", () => {",
+							"    pm.request.body.isEmpty;",
+							"});",
+							"",
+							"// Test 3: Confirmar que la petición incluye un Bearer token de autenticación",
+							"pm.test(\"La petición incluye un token Bearer de autenticación\", () => {",
+							"    const authHeader = pm.request.headers.get(\"Authorization\");",
+							"    ",
+							"    pm.expect(authHeader, \"El header Authorization debe estar presente\").to.exist;",
+							"    pm.expect(authHeader.startsWith(\"Bearer \"), \"Debe comenzar con 'Bearer '\").to.be.true;",
+							"",
+							"    const token = authHeader.replace(\"Bearer \", \"\").trim();",
+							"    pm.expect(token, \"El token no debe estar vacío\").to.not.be.empty;",
+							"});",
+							"",
+							"// Test 4: Verificar que la respuesta contiene un array de objetos JSON",
+							"pm.test(\"Verificar que la respuesta contiene un array de objetos JSON\", () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an(\"array\");",
+							"});",
+							"",
+							"// Test 5: Verificar que en el Header contiene el tipo de contenido application/json",
+							"pm.test(\"Verificar que en el Header contiene el tipo de contenido application/json\", () => {",
+							"    const contentType = pm.response.headers.get(\"Content-Type\");",
+							"    pm.expect(contentType).to.include(\"application/json\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/clients",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Nuevo Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test 1: Verificar que la petición retorna código de estado 201",
+							"pm.test(\"Verificar que la petición retorna código de estado 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"// Test 2: Verificar que en el header de la petición se envíe correctamente el Content-Type application/json",
+							"pm.test(\"El header Content-Type debe ser application/json\", () => {",
+							"    pm.expect(pm.request.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+							"});",
+							"",
+							"// Test 3: Confirmar que la petición incluye un Bearer token de autenticación",
+							"pm.test(\"La petición incluye un token Bearer de autenticación\", () => {",
+							"    const authHeader = pm.request.headers.get(\"Authorization\");",
+							"    ",
+							"    pm.expect(authHeader, \"El header Authorization debe estar presente\").to.exist;",
+							"    pm.expect(authHeader.startsWith(\"Bearer \"), \"Debe comenzar con 'Bearer '\").to.be.true;",
+							"",
+							"    const token = authHeader.replace(\"Bearer \", \"\").trim();",
+							"    pm.expect(token, \"El token no debe estar vacío\").to.not.be.empty;",
+							"});",
+							"",
+							"// Se obtiene el cuerpo de la respuesta en formato JSON para realizar las siguientes pruebas.",
+							"const jsonData = pm.response.json();",
+							"pm.collectionVariables.set(\"idRegistro\", jsonData.id); // Se guarda el valor de 'id' en la variable de colección para su uso en los siguientes scripts.",
+							"",
+							"// Test 4: Verificar que el cuerpo de la respuesta contiene la propiedad 'id' y es un número",
+							"pm.test(\"La respuesta debe contener la propiedad 'id' y debe ser un número\", () => {",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData.id).to.be.a('number');",
+							"});",
+							"",
+							"// Test 5: Verificar que se enviaron correctamente los datos en el cuerpo de la petición",
+							"pm.test(\"Verificar que se enviaron correctamente los datos en el cuerpo de la petición\", () => {",
+							"    const requestBody = pm.request.body.raw;",
+							"    const parsedBody = JSON.parse(requestBody);",
+							"    ",
+							"    pm.expect(jsonData.name).to.be.eq(parsedBody.name);",
+							"    pm.expect(jsonData.email).to.be.eq(parsedBody.email);",
+							"    pm.expect(jsonData.cuit).to.be.eq(parsedBody.cuit);",
+							"    pm.expect(jsonData.phone).to.be.eq(parsedBody.phone);",
+							"    pm.expect(jsonData.address).to.be.eq(parsedBody.address);",
+							"    // Convertimos ambos a Number para evitar errores por tipo",
+							"    pm.expect(Number(jsonData.balance)).to.eql(Number(parsedBody.balance));",
+							"    // Comparación segura para booleanos",
+							"    pm.expect(Boolean(jsonData.is_active)).to.eql(Boolean(parsedBody.is_active));",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Leonel Briones\",\n    \"cuit\": \"24-22345678-9\",\n    \"email\": \"lbriones24@example.com\",\n    \"phone\": \"+54 9 11 1234-5678\",\n    \"address\": \"Av. Corrientes 1234, Viña del Mar, Chile\",\n    \"balance\": 15230.75,\n    \"is_active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/clients",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients"
+					]
+				},
+				"description": "### Add Client\n\nThis endpoint allows you to create a new client in the system. By sending a POST request to `{{baseURL}}/api/clients`, you can register a client with their relevant details.\n\n#### Request Method\n\n- **POST**\n    \n\n#### Request Body Format\n\nThe request body should be in JSON format and must include the following fields:\n\n- **name** (string): The full name of the client.\n    \n- **cuit** (string): The CUIT (Unique Tax Identification Code) of the client.\n    \n- **email** (string): The email address of the client.\n    \n- **phone** (string): The phone number of the client, including country code.\n    \n- **address** (string): The physical address of the client.\n    \n- **balance** (number): The current balance associated with the client.\n    \n- **is_active** (boolean): Indicates whether the client is currently active.\n    \n\nExample of a valid request body:\n\n``` json\n{\n  \"name\": \"Leonel Briones\",\n  \"cuit\": \"24-22345678-9\",\n  \"email\": \"lbriones24@example.com\",\n  \"phone\": \"+54 9 11 1234-5678\",\n  \"address\": \"Av. Corrientes 1234, Viña del ...\",\n  \"balance\": 15230.75,\n  \"is_active\": true\n}\n\n ```\n\n#### Response Structure\n\nUpon successful creation of a client, the API will return a response containing the details of the newly created client. The response will typically include:\n\n- **id** (number): The unique identifier for the newly created client.\n    \n- **name** (string): The full name of the client.\n    \n- **cuit** (string): The CUIT of the client.\n    \n- **email** (string): The email address of the client.\n    \n- **phone** (string): The phone number of the client.\n    \n- **address** (string): The physical address of the client.\n    \n- **balance** (number): The current balance of the client.\n    \n- **is_active** (boolean): The active status of the client.\n    \n- **updated_at** (string): Timestamp of when the client was last updated.\n    \n- **created_at** (string): Timestamp of when the client was created.\n    \n\nThis response structure allows you to confirm that the client has been successfully added and provides the necessary details for further interactions with the client record."
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar información del cliente recién registrado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test 1: Verificar si la petición devuelve un status code 200 al finalizar correctamente",
+							"pm.test(\"Verificar que la petición devuelve un código de estado 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Test 2: Verificar que en el header de la petición se envíe correctamente el Content-Type application/json",
+							"pm.test(\"El header Content-Type debe ser application/json\", () => {",
+							"    pm.expect(pm.request.headers.get(\"Content-Type\")).to.eql(\"application/json\");",
+							"});",
+							"",
+							"// Test 3: Confirmar que la petición incluye un Bearer token de autenticación",
+							"pm.test(\"La petición incluye un token Bearer de autenticación\", () => {",
+							"    const authHeader = pm.request.headers.get(\"Authorization\");",
+							"    ",
+							"    pm.expect(authHeader, \"El header Authorization debe estar presente\").to.exist;",
+							"    pm.expect(authHeader.startsWith(\"Bearer \"), \"Debe comenzar con 'Bearer '\").to.be.true;",
+							"",
+							"    const token = authHeader.replace(\"Bearer \", \"\").trim();",
+							"    pm.expect(token, \"El token no debe estar vacío\").to.not.be.empty;",
+							"});",
+							"",
+							"// Test 4: Verificar que el cuerpo de la respuesta contiene un objeto",
+							"pm.test(\"Verficar que el cuerpo de la respuesta sea un objeto JSON\", () => {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"// Test 5: Verificar que se guardaron correctamente los datos",
+							"pm.test(\"Verificar que se guardaron correctamente los datos\", () => {",
+							"    const jsonData = pm.response.json();",
+							"    const requestBody = pm.request.body.raw;",
+							"    const parsedBody = JSON.parse(requestBody);",
+							"    pm.expect(jsonData.name).to.eql(parsedBody.name);",
+							"    pm.expect(jsonData.cuit).to.eql(parsedBody.cuit);",
+							"    pm.expect(jsonData.email).to.eql(parsedBody.email);",
+							"    pm.expect(jsonData.phone).to.eql(parsedBody.phone);",
+							"    pm.expect(jsonData.address).to.eql(parsedBody.address);",
+							"    pm.expect(Number(jsonData.balance)).to.eql(Number(parsedBody.balance));",
+							"    pm.expect(jsonData.is_active).to.eql(parsedBody.is_active);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Leonel Briones\",\n    \"cuit\": \"24-22345678-9\",\n    \"email\": \"lbriones24@example.com\",\n    \"phone\": \"+54 9 11 1234-5678\",\n    \"address\": \"Av. Corrientes 1234, Viña del Mar, Chile\",\n    \"balance\": 15230.75,\n    \"is_active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/clients/{{idRegistro}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients",
+						"{{idRegistro}}"
+					]
+				},
+				"description": "### Update Client Information\n\nThis endpoint allows you to update the details of a specific client identified by `idRegistro`. The request modifies the client's information stored in the system.\n\n#### Request Format\n\n- **HTTP Method:** PUT\n    \n- **Endpoint:** `{{baseURL}}/api/clients/{{idRegistro}}`\n    \n- **Request Body (JSON):**\n    \n    - `name` (string): The full name of the client.\n        \n    - `cuit` (string): The CUIT number of the client.\n        \n    - `email` (string): The email address of the client.\n        \n    - `phone` (string): The contact phone number of the client.\n        \n    - `address` (string): The residential address of the client.\n        \n    - `balance` (number): The current balance associated with the client.\n        \n    - `is_active` (boolean): Indicates whether the client is currently active.\n        \n\n#### Expected Response Format\n\nUpon a successful update, the server will respond with a confirmation message and the updated client information. The response will typically include the following fields:\n\n- `status`: A message indicating the success of the operation.\n    \n- `data`: An object containing the updated client details.\n    \n\nMake sure to provide valid data for all fields as required by your application’s business logic.\n\nThis endpoint allows you to update the details of a specific client identified by `idRegistro`. The request modifies the client's information stored in the system.\n\n#### Purpose\n\nThe purpose of this API is to update the client's information, including personal details and account balance, ensuring that the data in the system is current and accurate.\n\n#### Request Format\n\n- **HTTP Method:** PUT\n    \n- **Endpoint:** `{{baseURL}}/api/clients/{{idRegistro}}`\n    \n- **Request Body (JSON):**\n    \n    - `name` (string): The full name of the client. This should be the client's complete name as it will be displayed in the system.\n        \n    - `cuit` (string): The CUIT number of the client, which is a unique identifier for tax purposes in Argentina.\n        \n    - `email` (string): The email address of the client, used for communication and notifications.\n        \n    - `phone` (string): The contact phone number of the client, which may include country and area codes.\n        \n    - `address` (string): The residential address of the client, which may include street, number, and locality.\n        \n    - `balance` (number): The current balance associated with the client, reflecting their financial status in the system.\n        \n    - `is_active` (boolean): Indicates whether the client is currently active. A value of `true` means the client is active, while `false` indicates they are inactive.\n        \n\n#### Expected Response Format\n\nUpon a successful update, the server will respond with a status code of 200 and the updated client information. The response will typically include the following fields:\n\n- `id`: The unique identifier for the client in the system.\n    \n- `name`: The updated name of the client.\n    \n- `cuit`: The updated CUIT number of the client.\n    \n- `email`: The updated email address of the client.\n    \n- `phone`: The updated contact phone number of the client.\n    \n- `address`: The updated residential address of the client.\n    \n- `balance`: The updated balance associated with the client.\n    \n- `is_active`: The current status indicating whether the client is active.\n    \n- `created_at`: The timestamp when the client was created in the system.\n    \n- `updated_at`: The timestamp when the client information was last updated.\n    \n- `deleted_at`: A nullable field indicating when the client was deleted, if applicable.\n    \n\nMake sure to provide valid data for all fields as required by your application’s business logic.\n\nThis endpoint allows you to update the details of a specific client identified by `idRegistro`. The request modifies the client's information stored in the system.\n\n#### Request Format\n\n- **HTTP Method:** PUT\n    \n- **Endpoint:** `{{baseURL}}/api/clients/{{idRegistro}}`\n    \n\n#### Authentication\n\nYou must include an authentication token in the request headers to access this endpoint.\n\n#### Headers\n\n- `Authorization` (string): Bearer token for authentication.\n    \n- `Content-Type` (string): Must be set to `application/json`.\n    \n\n#### Request Body (JSON):\n\n- `name` (string): The full name of the client.\n    \n- `cuit` (string): The CUIT number of the client.\n    \n- `email` (string): The email address of the client.\n    \n- `phone` (string): The contact phone number of the client.\n    \n- `address` (string): The residential address of the client.\n    \n- `balance` (number): The current balance associated with the client.\n    \n- `is_active` (boolean): Indicates whether the client is currently active.\n    \n\n#### Expected Response Format\n\nUpon a successful update, the server will respond with a status code of 200 and a JSON object containing the updated client information. The response will typically include the following fields:\n\n- `id`: The unique identifier of the client.\n    \n- `name`: The updated name of the client.\n    \n- `cuit`: The updated CUIT number of the client.\n    \n- `email`: The updated email address of the client.\n    \n- `phone`: The updated contact phone number of the client.\n    \n- `address`: The updated residential address of the client.\n    \n- `balance`: The updated current balance associated with the client.\n    \n- `is_active`: Indicates whether the client is currently active.\n    \n- `created_at`: The timestamp of when the client was created.\n    \n- `updated_at`: The timestamp of the last update made to the client.\n    \n- `deleted_at`: Indicates if the client has been marked as deleted (if applicable).\n    \n\nMake sure to provide valid data for all fields as required by your application’s business logic.\n\nThis endpoint allows you to update the details of a specific client identified by `idRegistro`. The request modifies the client's information stored in the system.\n\n#### Important Notes\n\n- Ensure that all fields are provided with valid data as required by your application’s business logic.\n    \n\n#### Request Format\n\n- **HTTP Method:** PUT\n    \n- **Endpoint:** `{{baseURL}}/api/clients/{{idRegistro}}`\n    \n- **Request Body (JSON):**\n    \n    - `name` (string): The full name of the client.\n        \n    - `cuit` (string): The CUIT number of the client.\n        \n    - `email` (string): The email address of the client.\n        \n    - `phone` (string): The contact phone number of the client.\n        \n    - `address` (string): The residential address of the client.\n        \n    - `balance` (number): The current balance associated with the client.\n        \n    - `is_active` (boolean): Indicates whether the client is currently active.\n        \n\n#### Expected Response Format\n\nUpon a successful update, the server will respond with a confirmation message and the updated client information. The response will typically include the following fields:\n\n- `status`: A message indicating the success of the operation.\n    \n- `data`: An object containing the updated client details."
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Cliente registrado anteriormente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test 1: Verificar que la petición realizada correctamente retorna un 204 No Content",
+							"pm.test(\"Elimina correctamente el cliente\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"// Test 2: Verificar que la respuesta no contenga body",
+							"pm.test(\"La respuesta no debe contener un cuerpo\", () => {",
+							"    pm.expect(pm.response.text()).to.be.empty; ",
+							"});",
+							"",
+							"// Test 3: Confirmar que la petición incluye un Bearer token de autenticación",
+							"pm.test(\"La petición incluye un token Bearer de autenticación\", () => {",
+							"    const authHeader = pm.request.headers.get(\"Authorization\");",
+							"    ",
+							"    pm.expect(authHeader, \"El header Authorization debe estar presente\").to.exist;",
+							"    pm.expect(authHeader.startsWith(\"Bearer \"), \"Debe comenzar con 'Bearer '\").to.be.true;",
+							"",
+							"    const token = authHeader.replace(\"Bearer \", \"\").trim();",
+							"    pm.expect(token, \"El token no debe estar vacío\").to.not.be.empty;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/clients/{{idRegistro}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients",
+						"{{idRegistro}}"
+					]
+				},
+				"description": "## DELETE Client\n\nThis endpoint is used to delete a client record identified by a specific `idRegistro`.\n\n### Request Parameters\n\n- `idRegistro` (path parameter): The unique identifier of the client record that you wish to delete. This should be replaced with the actual client ID in the URL.\n    \n\n### Expected Response\n\n- **Status Code**: `204 No Content` - This indicates that the request was successful and the client record has been deleted. No additional content will be returned in the response body.\n    \n\n### Notes\n\n- Ensure that the `idRegistro` provided corresponds to an existing client record, as attempting to delete a non-existent record may result in a different status code.\n    \n- This operation is irreversible; once a client record is deleted, it cannot be recovered."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api-tester-adl.leonardojose.dev",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "\"testeradl@test.com\"",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "\"Tester@2025\"",
+			"type": "string"
+		},
+		{
+			"key": "idRegistro",
+			"value": "50",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "1149|m19UYcJyxeL22OscZsbJaRq4xRy6VooZAoZC0NGb93c71a45",
+			"type": "string"
+		}
+	]
+}
