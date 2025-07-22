@@ -20,7 +20,7 @@ Antes de comenzar, asegurate de tener instalado:
 1. Clonar el repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/QA-FinalProject-AutoTesting.git
+   git clone https://github.com/victorvivas27/QA-FinalProject-AutoTesting.git
    cd QA-FinalProject-AutoTesting/Pruebas-de-Mobile
    ```
 
