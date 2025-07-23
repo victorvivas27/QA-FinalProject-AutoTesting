@@ -4,9 +4,17 @@ node_modules/
 # Playwright
 test-results/
 playwright-report/
-/blob-report/
-/playwright/.cache/
+blob-report/
+playwright/.cache/
 
 # Entornos
 .env
 .DS_Store
+
+# Ignorar videos y capturas automáticas
+reports/videos/
+reports/screenshots/
+
+# Ignorar reportes generados
+reports/cucumber-report.*
+reports/html/
