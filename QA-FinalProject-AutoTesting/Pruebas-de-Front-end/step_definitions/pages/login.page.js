@@ -43,6 +43,12 @@ class LoginPage extends BasePage {
     await filas.first().waitFor({ state: 'visible', timeout: 5000 });
     return await filas.count();
   }
+
+   async validarQueExistaAlMenosUnArticulo() {
+    const filas = this.page.locator(`${this.selectors.tablaArticulos} tbody tr`);
+    const cantidad = await filas.count();
+    expect(cantidad).toBeGreaterThan(0);
+  }
   async login(email, password) {
     await this.enterEmail(email);
     await this.enterPassword(password);
