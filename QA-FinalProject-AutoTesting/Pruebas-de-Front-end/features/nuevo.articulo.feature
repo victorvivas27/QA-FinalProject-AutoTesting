@@ -22,7 +22,7 @@ Feature: Registrar un nuevo artículo
 
     Examples:
       | codigo    | stock | precio | descripcion                             | costo  | unidad_medida | mensaje                                                              |
-      | IPH16-003 | 1     | 999    | iPhone 16 Pantalla 6.1", 256GB, 8GB RAM | 699.99 | Unidad        | Articulo "iPhone 16 Pantalla 6.1", 256GB, 8GB RAM" creado con éxito! |
+      | IPH16-004 | 1     | 999    | iPhone 16 Pantalla 6.1", 256GB, 8GB RAM | 699.99 | Unidad        | Articulo "iPhone 16 Pantalla 6.1", 256GB, 8GB RAM" creado con éxito! |
 
   @negativo
   Scenario: Intentar guardar artículo con todos los campos vacíos
@@ -30,6 +30,7 @@ Feature: Registrar un nuevo artículo
     And Campos correctos "Guardar Cambios"
     Then deberia permanecer en la ruta articulos nuevo
     And deberían mostrarse errores de validación requeridos
+    And ⚠️ Si todos los campos están vacíos, el sistema debe mostrar mensajes de validación para cada campo requerido.
 
   @negativo
   Scenario: Guardar artículo sin Código (SKU)
@@ -42,6 +43,7 @@ Feature: Registrar un nuevo artículo
       | Unidad de Medida | Unidad       |
     And Campos correctos "Guardar Cambios"
     Then NO debería guardarse el artículo
+    And ⚠️ Si el código (SKU) está vacío, el sistema debe mostrar un mensaje de error y evitar el guardado.
 
 
   @negativo
