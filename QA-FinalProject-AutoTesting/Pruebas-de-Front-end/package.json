@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "report": "node generate-report.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,5 +14,8 @@
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.13",
     "cucumber-html-reporter": "^7.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0"
   }
 }
