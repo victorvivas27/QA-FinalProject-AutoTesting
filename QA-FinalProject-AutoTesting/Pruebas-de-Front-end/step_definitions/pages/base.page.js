@@ -16,17 +16,6 @@ class BasePage {
   async fillByRole(roleObj, value) {
     await this.page.getByRole(roleObj.role, { name: roleObj.name }).fill(value);
   }
-
-  // Método adicional útil para esperas
-  async waitForSelector(selector, options) {
-    await this.page.locator(selector).waitFor(options);
-  }
-
-  async validarQueExistaAlMenosUnArticulo() {
-    const filas = this.page.locator(`${this.selectors.tablaArticulos} tbody tr`);
-    const cantidad = await filas.count();
-    expect(cantidad).toBeGreaterThan(0);
-  }
 }
 
 module.exports = BasePage
