@@ -2,6 +2,7 @@ const { Before, After, AfterStep, Status } = require('@cucumber/cucumber');
 const fs = require('fs');
 const path = require('path');
 const LoginPage = require('../step_definitions/pages/login.page');
+const NuevoArticuloPage = require('../step_definitions/pages/nuevo.articulo.page');
 
 
 
@@ -20,6 +21,7 @@ Before(async function () {
   // 'this' es una instancia de tu CustomWorld
   await this.init();
   this.loginPage = new LoginPage(this.page);
+  this.nuevoArticuloPage = new NuevoArticuloPage(this.page);
 
   const screenshotDir = 'reports/screenshots';
   if (!fs.existsSync(screenshotDir)) {
