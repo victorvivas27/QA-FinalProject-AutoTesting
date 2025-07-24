@@ -35,16 +35,16 @@ ERP_PASSWORD=tu_password_segura
 
 ## ▶️ Ejecutar pruebas
 
-### 🔹 Ejecutar todas las pruebas
+### 🔹Ejecutar todas las pruebas en orden y generar reporte
 
 ```bash
-npx cucumber-js
+npm run e2e
 ```
 
 ### 🔹 Ejecutar un archivo `.feature` específico
 
 ```bash
-npx cucumber-js features/login.feature
+npx cucumber-js features/01_login.feature
 ```
 
 ### 🔹 Ejecutar un escenario específico con etiqueta `@focus`
@@ -62,7 +62,7 @@ npx cucumber-js --tags @focus
 Después de ejecutar las pruebas, podés generar y abrir el reporte HTML con:
 
 ```bash
-node reports/generate-report.js
+ npm run report
 ```
 
 El reporte se guardará en: `reports/html/index.html`

@@ -8,14 +8,6 @@ class NuevoArticuloPage extends BasePage {
       ...selectores.nuevoArticulo,
     };
   }
-
-  async clickBotonPorNombre(nombreBoton) {
-    const boton = this.page.getByRole('button', { name: nombreBoton });
-    await boton.waitFor({ state: 'visible', timeout: 5000 });
-    await boton.click();
-  }
-
-
   async completarFormulario({ codigo, stock, precio, descripcion, costo, unidad_medida }) {
     if (codigo !== undefined) {
       await this.page.fill(this.selectors.inputCodigo, codigo);

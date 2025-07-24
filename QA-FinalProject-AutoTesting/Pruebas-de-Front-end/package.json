@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "report": "node generate-report.js"
+    "test": "npx cucumber-js --order defined",
+    "e2e": "npm run test",
+    "report":"node reports/generate-report.js"
   },
   "keywords": [],
   "author": "",

@@ -1,8 +1,9 @@
 const { Before, After, AfterStep, Status } = require('@cucumber/cucumber');
 const fs = require('fs');
 const path = require('path');
-const LoginPage = require('../step_definitions/pages/login.page');
-const NuevoArticuloPage = require('../step_definitions/pages/nuevo.articulo.page');
+const LoginPage = require('../step_definitions/pages/login.page.js');
+const NuevoArticuloPage = require('../step_definitions/pages/nuevo.articulo.page.js');
+const ActualizarArticuloPage = require('../step_definitions/pages/actualizar.articulo.page.js');
 
 
 
@@ -22,6 +23,7 @@ Before(async function () {
   await this.init();
   this.loginPage = new LoginPage(this.page);
   this.nuevoArticuloPage = new NuevoArticuloPage(this.page);
+  this.actualizarArticuloPage = new ActualizarArticuloPage(this.page);
 
   const screenshotDir = 'reports/screenshots';
   if (!fs.existsSync(screenshotDir)) {
