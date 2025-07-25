@@ -32,7 +32,7 @@ La documentación está en cada una de las carpetas principales (Backend, Fronte
 En el caso del Backend, realizamos la documentación en inglés para practicar el idioma. 
 Los resultados se encuentrarn dentro de cada folder principal (Backend, Frontend, Mobile).
 
-- [Documentación Back-end](./Pruebas-de-Backend/README.md)
+- [Documentación Back-end](QA-FinalProjetc-AutoTesting/Pruebas-de-Backend/README.md)
 - [Documentación Front-end](./Pruebas-de-Front-end/README.md)
 - [Documentación Mobile](./Pruebas-de-Mobile/README.md)
 
