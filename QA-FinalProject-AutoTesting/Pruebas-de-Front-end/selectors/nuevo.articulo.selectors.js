@@ -8,8 +8,5 @@ module.exports = {
   inputStock: '#stock_quantity',
   inputCosto: '#cost_price',
   select: '#unit',
-  btnGuardarCambios: { role: 'button', name: 'Guardar Cambios' },
-  btnCancelarCambios: { role: 'button', name: 'Cancelar Cambios' },
-  toastConfirmacion: '.Toastify__toast--info[role="alert"]'
-
+ 
 };

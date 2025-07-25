@@ -2,9 +2,9 @@ const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 
 
-When('voy al icono de lápiz del artículo', async function () {
+When('voy al ícono del lápiz con el codigo {string}', async function (codigo) {
 
-  await this.actualizarArticuloPage.clickActualizarArticulo();
+  await this.actualizarArticuloPage.clickActualizarArticuloPorCodigo(codigo);
 
 });
 
@@ -37,16 +37,8 @@ Then('debería ver que el artículo {string} aún tiene el precio original {stri
 
 });
 
-When('modifica el campo Código a {string}', async function (codigo) {
+When('modifica el campo Stock Actual a {string}', async function (stock) {
 
-  await this.actualizarArticuloPage.cambiarSoloCodigo(codigo);
+  await this.actualizarArticuloPage.cambiarSoloStock(stock);
 
-});
-
-
-Then('debería mostrarse un toast de tipo {string} con el texto {string}', async function (tipo, mensajeEsperado) {
-
-  const toast = await this.actualizarArticuloPage.getToastByType(tipo);
-
-  await expect(toast).toContainText(mensajeEsperado);
 });
