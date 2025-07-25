@@ -1,8 +1,13 @@
 const { expect } = require("@playwright/test");
+const selectores = require("../../selectors/index.selectors");
 
 class BasePage {
   constructor(page) {
     this.page = page;
+     this.selectors = {
+     
+        ...selectores.articulos
+    };
   }
 
   async navigate(url) {
@@ -39,6 +44,17 @@ class BasePage {
     const toast = this.page.locator(selector);
     await toast.waitFor({ state: 'visible', timeout: 5000 });
     return toast;
+
+  }
+
+  async eliminarArticulo(valor) {
+
+    const selector = this.selectors.getBtnEliminarPorValor(valor);
+    const botonPapelera = this.page.locator(selector);
+    await botonPapelera.waitFor({ state: 'visible', timeout: 5000 });
+    await botonPapelera.click();
+    await this.page.waitForTimeout(3000);
+
   }
 }
 

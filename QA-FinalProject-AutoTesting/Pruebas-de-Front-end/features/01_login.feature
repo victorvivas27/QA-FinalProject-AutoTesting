@@ -1,7 +1,9 @@
 Feature: Login en Sistema ERP
-
+  Background:
+    Given Que el usuario registrado accede al sistema ERP
+    
+@positivo @smoke
   Scenario Outline: Login exitoso y navegación a artículos
-    Given El usuario abre la aplicación ERP
     When Ingresa el email y contraseña
     Then Debe ver el mensaje "<mensaje_bienvenida>"
     And En el menú izquierdo selecciona Entidades
@@ -11,9 +13,9 @@ Feature: Login en Sistema ERP
     Examples:
       | mensaje_bienvenida         |
       | Bienvenido al sistema ERP. |
-
+      
+@positivo
   Scenario Outline: Validar que la paginación muestra 10 artículos por página
-    Given El usuario abre la aplicación ERP
     When Ingresa el email y contraseña
     Then Debe ver el mensaje "<mensaje_bienvenida>"
     And En el menú izquierdo selecciona Entidades
@@ -23,18 +25,18 @@ Feature: Login en Sistema ERP
     Examples:
       | mensaje_bienvenida         |
       | Bienvenido al sistema ERP. |
-
+      
+@negativo @validacion
   Scenario Outline: Login con credenciales inválidas
-    Given El usuario abre la aplicación ERP
     When Ingresa el email "<email>" y contraseña "<password>"
-    Then Debe aparecer un modal con el mensaje "<mensaje_error>"
+    Then debería mostrarse un toast de tipo 'error' con el texto '<mensaje>'
 
     Examples:
-      | email           | password     | mensaje_error                                    |
+      | email           | password     | mensaje                                          |
       | falso1@test.com | malaClave123 | Las credenciales proporcionadas son incorrectas. |
 
+@negativo @validacion
   Scenario: Login con campos vacíos
-    Given El usuario abre la aplicación ERP
     When Ingresa el email "<email>" y contraseña "<password>"
     Then El campo email debe seguir vacío
     Then Debe permanecer en la ruta login

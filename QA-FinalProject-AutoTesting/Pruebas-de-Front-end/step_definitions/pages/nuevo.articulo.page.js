@@ -21,13 +21,7 @@ class NuevoArticuloPage extends BasePage {
     await this.page.selectOption(this.selectors.select, { label: unidad_medida });
   }
 
-  async obtenerToastConfirmacion() {
-
-    const toast = this.page.locator(this.selectors.toastConfirmacion);
-    await toast.waitFor({ state: 'visible', timeout: 5000 });
-    return toast;
-
-  }
+ 
 }
 
 module.exports = NuevoArticuloPage;

@@ -7,16 +7,22 @@ let email = process.env.ERP_EMAIL;
 let password = process.env.ERP_PASSWORD;
 
 
-Given('El usuario abre la aplicación ERP', async function () {
+Given('Que el usuario registrado accede al sistema ERP', async function () {
+
   await this.loginPage.navigate(this.parameters.baseUrl);
+
 });
 
 When('Ingresa el email y contraseña', async function () {
+
   await this.loginPage.login(email, password);
+
 });
 
 When('Iniciar sesión', async function () {
+
   await this.loginPage.clickLoginButton();
+
 });
 
 Then('Debe ver el mensaje {string}', async function (mensaje_bienvenida) {
@@ -57,14 +63,8 @@ Then('Validar que la paginación esté correcta y se muestren como máximo 10 ar
 });
 
 When('Ingresa el email {string} y contraseña {string}', async function (email, password) {
+
   await this.loginPage.login(email, password);
-});
-
-Then('Debe aparecer un modal con el mensaje {string}', async function (mensaje_error) {
-
-  const toast = this.page.locator('.Toastify__toast--error');
-  await toast.waitFor({ state: 'visible', timeout: 5000 });
-  await expect(toast).toContainText(mensaje_error);
 
 });
 

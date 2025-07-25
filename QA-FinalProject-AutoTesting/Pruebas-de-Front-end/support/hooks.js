@@ -4,6 +4,7 @@ const path = require('path');
 const LoginPage = require('../step_definitions/pages/login.page.js');
 const NuevoArticuloPage = require('../step_definitions/pages/nuevo.articulo.page.js');
 const ActualizarArticuloPage = require('../step_definitions/pages/actualizar.articulo.page.js');
+const BasePage = require('../step_definitions/pages/base.page.js');
 
 
 
@@ -24,6 +25,7 @@ Before(async function () {
   this.loginPage = new LoginPage(this.page);
   this.nuevoArticuloPage = new NuevoArticuloPage(this.page);
   this.actualizarArticuloPage = new ActualizarArticuloPage(this.page);
+  this.basePage = new BasePage(this.page);
 
   const screenshotDir = 'reports/screenshots';
   if (!fs.existsSync(screenshotDir)) {
