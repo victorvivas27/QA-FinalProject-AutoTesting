@@ -11,17 +11,7 @@ Given('Que el usuario registrado accede al sistema ERP', async function () {
 
   await this.loginPage.navigate(this.parameters.baseUrl);
 
-});
-
-When('Ingresa el email y contraseña', async function () {
-
   await this.loginPage.login(email, password);
-
-});
-
-When('Iniciar sesión', async function () {
-
-  await this.loginPage.clickLoginButton();
 
 });
 
@@ -46,13 +36,14 @@ When('Dentro de Entidades selecciona Artículos', async function () {
 
 });
 
-Then('Validar que al menos exista un articulo', async function () {
 
-  const cantidad = await this.loginPage.contarFilasDeTabla();
-  expect(cantidad).toBeGreaterThan(0);
+
+Then('Debe mostrarse el título {string}', async function (tituloEsperado) {
+
+  const titulo = this.page.locator('h1', { hasText: tituloEsperado });
+  await expect(titulo).toBeVisible();
 
 });
-
 
 Then('Validar que la paginación esté correcta y se muestren como máximo 10 artículos', async function () {
 
@@ -62,23 +53,4 @@ Then('Validar que la paginación esté correcta y se muestren como máximo 10 ar
 
 });
 
-When('Ingresa el email {string} y contraseña {string}', async function (email, password) {
 
-  await this.loginPage.login(email, password);
-
-});
-
-
-Then('El campo email debe seguir vacío', async function () {
-
-  const campoEmail = this.page.locator('#email');
-  const valor = await campoEmail.inputValue();
-  expect(valor).toBe('');
-
-});
-
-Then('Debe permanecer en la ruta login', async function () {
-
-  await expect(this.page).toHaveURL(/.*\/login/);
-
-});

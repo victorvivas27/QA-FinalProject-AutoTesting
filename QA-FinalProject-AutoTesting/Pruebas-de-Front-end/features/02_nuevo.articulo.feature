@@ -2,9 +2,9 @@ Feature: Registrar un nuevo artículo
 
   Background:
     Given Que el usuario registrado accede al sistema ERP
-    When Ingresa el email y contraseña
     And En el menú izquierdo selecciona Entidades
     And Dentro de Entidades selecciona Artículos
+
 
   @positivo @smoke
   Scenario Outline: Crear un nuevo artículo

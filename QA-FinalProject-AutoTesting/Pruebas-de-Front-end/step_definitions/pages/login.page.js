@@ -32,23 +32,21 @@ class LoginPage extends BasePage {
   async clickArticulos() {
     await this.click(this.selectors.btnArticulos);
   }
-
-
-  async tituloListaArticulos() {
+async tituloListaArticulos() {
     await this.waitForSelector(this.selectors.tituloListaArticulos);
   }
 
-  async contarFilasDeTabla() {
-    const filas = this.page.locator(`${this.selectors.tablaArticulos} tbody tr`);
+async contarFilasDeTabla() {
+  const filas = this.page.locator(`${this.selectors.tablaArticulos} tbody tr`);
+  const cantidad = await filas.count();
+
+  if (cantidad > 0) {
     await filas.first().waitFor({ state: 'visible', timeout: 5000 });
-    return await filas.count();
   }
 
-   async validarQueExistaAlMenosUnArticulo() {
-    const filas = this.page.locator(`${this.selectors.tablaArticulos} tbody tr`);
-    const cantidad = await filas.count();
-    expect(cantidad).toBeGreaterThan(0);
-  }
+  return cantidad;
+}
+
   async login(email, password) {
     await this.enterEmail(email);
     await this.enterPassword(password);

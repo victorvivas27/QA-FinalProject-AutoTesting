@@ -2,10 +2,9 @@ Feature: Eliminar un artículo
 
   Background:
     Given Que el usuario registrado accede al sistema ERP
-    When Ingresa el email y contraseña
     And En el menú izquierdo selecciona Entidades
     And Dentro de Entidades selecciona Artículos
-    
+
   @positivo
   Scenario Outline: Eliminar el artículo <articulo>
     And voy al ícono de la papelera con el codigo "<codigo>"
