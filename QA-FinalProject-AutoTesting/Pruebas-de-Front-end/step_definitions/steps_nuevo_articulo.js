@@ -9,7 +9,7 @@ When('vamos a {string}', async function (nombreBoton) {
 });
 
 When('completa el formulario con los siguientes datos:', async function (dataTable) {
-  
+
   const data = dataTable.rowsHash();
   await this.nuevoArticuloPage.completarFormulario({
     codigo: data['Código (SKU)'],
@@ -48,7 +48,7 @@ Then('deberían mostrarse errores de validación requeridos', async function () 
 
 Then('NO debería guardarse el artículo', async function () {
 
-   try {
+  try {
     const urlAntes = this.page.url();
     await this.page.waitForTimeout(1000);
     const urlDespues = this.page.url();
@@ -62,7 +62,7 @@ Then('NO debería guardarse el artículo', async function () {
 
 When('si el artículo con descripción {string} existe, lo elimino', async function (codigo) {
 
-await this.basePage.eliminarArticulo(codigo);
+  await this.basePage.eliminarArticulo(codigo);
 
 });
 

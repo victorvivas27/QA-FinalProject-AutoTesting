@@ -2,7 +2,6 @@ Feature: Actualizar un articulo existente
 
   Background:
     Given Que el usuario registrado accede al sistema ERP
-    When Ingresa el email y contraseña
     And En el menú izquierdo selecciona Entidades
     And Dentro de Entidades selecciona Artículos
 
